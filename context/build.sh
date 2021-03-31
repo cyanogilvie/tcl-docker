@@ -78,9 +78,10 @@ tar xzf thread.tar.gz
 	make clean
 )
 
-tar xzf tdbc.tar.gz
+mkdir tdbc
 (
 	cd tdbc
+	tar xz --strip-components=1 -zf "$BUILDDIR/tdbc.tar.gz"
 	tar xzf "$BUILDDIR/tclconfig.tar.gz"
 	autoconf
 	CFLAGS=-O2 ./configure --enable-symbols
@@ -88,9 +89,10 @@ tar xzf tdbc.tar.gz
 	make clean
 )
 
-tar xzf tdbcpostgres.tar.gz
+mkdir tdbcpostgres
 (
 	cd tdbcpostgres
+	tar xz --strip-components=1 -zf "$BUILDDIR/tdbcpostgres.tar.gz"
 	tar xzf "$BUILDDIR/tclconfig.tar.gz"
 	autoconf
 	CFLAGS=-O2 ./configure --enable-symbols --with-tdbc=/usr/local/lib/tdbc1.1.1

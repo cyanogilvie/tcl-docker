@@ -1,4 +1,4 @@
-VER = 8.7pre1
+VER = 8.7pre2
 BRANCH = core-8-branch
 # Use core-8-branch to get the latest check-in on the core 8.x branch
 #BRANCH = core-8-branch
@@ -33,14 +33,16 @@ context/thread.tar.gz:
 
 context/tdbc.tar.gz:
 	#wget https://core.tcl-lang.org/tdbc/tarball/tdbc-1-1-1/tdbc.tar.gz -O context/tdbc.tar.gz
-	-rm -rf /tmp/dist
-	make -C ~/fossil/tdbc dist PKG_DIR=tdbc
-	cp /tmp/dist/tdbc.tar.gz context/tdbc.tar.gz
+	#-rm -rf /tmp/dist
+	#make -C ~/fossil/tdbc dist PKG_DIR=tdbc
+	#cp /tmp/dist/tdbc.tar.gz context/tdbc.tar.gz
+	wget https://github.com/cyanogilvie/tdbc/archive/connection-pool-git.tar.gz -O context/tdbc.tar.gz
 
 context/tdbcpostgres.tar.gz:
-	-rm -rf /tmp/dist
-	make -C ~/fossil/tdbcpostgres dist PKG_DIR=tdbcpostgres
-	cp /tmp/dist/tdbcpostgres.tar.gz context/tdbcpostgres.tar.gz
+	#-rm -rf /tmp/dist
+	#make -C ~/fossil/tdbcpostgres dist PKG_DIR=tdbcpostgres
+	#cp /tmp/dist/tdbcpostgres.tar.gz context/tdbcpostgres.tar.gz
+	wget https://github.com/cyanogilvie/tdbcpostgres/archive/detach-git.tar.gz -O context/tdbcpostgres.tar.gz
 
 context/tdom.tar.gz:
 	wget https://github.com/RubyLane/tdom/archive/master.tar.gz -O context/tdom.tar.gz
@@ -90,10 +92,10 @@ run: image
 	docker run --rm -it tcl:$(VER)
 
 publish: image
-	docker tag tcl:8.7pre1 cyanogilvie/tcl:8.7pre1
-	docker tag tcl:8.7pre1 cyanogilvie/tcl:latest
-	docker push cyanogilvie/tcl:8.7pre1
+	docker tag tcl:$(VER) cyanogilvie/tcl:$(VER)
+	docker tag tcl:$(VER) cyanogilvie/tcl:latest
+	docker push cyanogilvie/tcl:$(VER)
 	docker push cyanogilvie/tcl:latest
 
 clean:
-	-rm -rf $(SOURCES)/*.gz
+	-rm -rf $(SOURCES)
