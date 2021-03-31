@@ -3,6 +3,11 @@ Tcl Docker Image
 
 This is a docker image based on alpine linux with the Tcl runtime (8.7 latest) and a handful of standard packages I frequently need.  It isn't really intended for general use but you're welcome to it if you want.
 
+Docker Hub
+==========
+
+Published on hub.docker.com as cyanogilvie/tcl
+
 Included Packages
 =================
 ~~~
