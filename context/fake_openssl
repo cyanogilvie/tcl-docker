@@ -1,0 +1,25 @@
+#!/usr/local/bin/tclsh
+
+package require hash
+package require sha1
+
+proc readbin fn {
+	set h	[open $fn rb]
+	try {read $h} finally {close $h}
+}
+
+namespace eval $argv0 {
+	namespace export *
+	namespace ensemble create -prefixes no
+
+	proc sha256 fn { puts [hash::sha256 [readbin $fn]] }
+	proc sha1   fn { puts [::sha1::sha1 [readbin $fn]] }
+}
+
+try {
+	$argv0 {*}$argv
+} on error {errmsg options} {
+	puts stderr [dict get $options -errorinfo]
+	exit 1
+}
+
