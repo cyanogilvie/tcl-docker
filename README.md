@@ -24,4 +24,6 @@ Included Packages
 	  unix_sockets: 0.2       (https://github.com/cyanogilvie/unix_sockets)
 	        critcl: 3.1.18    (modified to support defining NRE commands: https://github.com/cyanogilvie/critcl)
 	       tcc4tcl: 0.30.1    (modified to support defining NRE commands: https://github.com/cyanogilvie/tcc4tcl)
+          gc_class: 1.0       (https://github.com/RubyLane/gc_class)
+           rl_http: 1.6       (https://github.com/RubyLane/rl_http)
 ~~~

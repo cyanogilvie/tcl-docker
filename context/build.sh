@@ -170,6 +170,22 @@ mkdir build_critcl
 echo "Removing $BUILDDIR/build_critcl"
 rm -rf "$BUILDDIR/build_critcl"
 
+mkdir build_gc_class
+(
+	cd build_gc_class
+	tar xz --strip-components=1 -zf "$BUILDDIR/gc_class.tar.gz"
+	mkdir -p /usr/local/lib/tcl8/site-tcl/
+	cp *.tm /usr/local/lib/tcl8/site-tcl/
+)
+
+mkdir build_rl_http
+(
+	cd build_rl_http
+	tar xz --strip-components=1 -zf "$BUILDDIR/rl_http.tar.gz"
+	mkdir -p /usr/local/lib/tcl8/site-tcl/
+	cp *.tm /usr/local/lib/tcl8/site-tcl/
+)
+
 # Temporary fake openssl binary to support calculating the hashes of downloaded sources
 cp fake_openssl /usr/local/bin/openssl
 chmod +x /usr/local/bin/openssl

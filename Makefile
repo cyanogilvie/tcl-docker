@@ -1,4 +1,4 @@
-VER = 8.7pre2
+VER = 8.7pre3
 BRANCH = core-8-branch
 # Use core-8-branch to get the latest check-in on the core 8.x branch
 #BRANCH = core-8-branch
@@ -18,7 +18,8 @@ SOURCES = \
 		  context/hash.tar.gz \
 		  context/unix_sockets.tar.gz \
 		  context/critcl.tar.gz \
-		  context/tcc4tcl.tar.gz
+		  context/tcc4tcl.tar.gz \
+		  context/rl_http.tar.gz
 
 all: image
 
@@ -78,12 +79,18 @@ context/tcc4tcl.tar.gz:
 	#fossil clone http://chiselapp.com/user/rkeene/repository/tcc4tcl
 	#fossil tarball --repository tcc4tcl.fossil --name tcc4tcl -l trunk context/tcc4tcl.tar.gz
 
+context/gc_class.tar.gz:
+	wget https://github.com/RubyLane/gc_class/archive/master.tar.gz -O context/gc_class.tar.gz
+
+context/rl_http.tar.gz:
+	wget https://github.com/RubyLane/rl_http/archive/master.tar.gz -O context/rl_http.tar.gz
+
 image: $(SOURCES)
 	#docker build --squash --network=host -t tcl:$(VER) -t tcl:latest -f Dockerfile context
 	docker build --network=host -t tcl:$(VER) -t tcl:latest -f Dockerfile context
 
 test: image
-	echo 'package require platform; puts "Tcl [info patchlevel] on [platform::identify], packages:\\n\\t[join [lmap e {Thread tdbc tdbc::postgres sqlite3 tdom tls uri rl_json parse_args hash unix_sockets critcl tcc4tcl} {format {%14s: %s} [set e] [package require [set e]]}] \\n\\t]"' | docker run --rm -i tcl:$(VER)
+	echo 'package require platform; puts "Tcl [info patchlevel] on [platform::identify], packages:\\n\\t[join [lmap e {Thread tdbc tdbc::postgres sqlite3 tdom tls uri rl_json parse_args hash unix_sockets critcl tcc4tcl gc_class rl_http} {format {%14s: %s} [set e] [package require [set e]]}] \\n\\t]"' | docker run --rm -i tcl:$(VER)
 
 inspect: image
 	docker run --rm -it --entrypoint=/bin/sh --network=host tcl:$(VER)
